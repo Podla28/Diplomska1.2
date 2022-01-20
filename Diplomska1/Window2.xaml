@@ -1,0 +1,150 @@
+﻿<Window x:Class="Diplomska1.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplomska1"
+        mc:Ignorable="d"
+        Title="Window2" Height="538" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#181735"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="predmetiViewSource"/>
+        <CollectionViewSource x:Key="letnikViewSource"/>
+        <CollectionViewSource x:Key="poglavjeViewSource"/>
+        <CollectionViewSource x:Key="tezavnostViewSource"/>
+    </Window.Resources>
+
+
+    <Grid  x:Name="GlavniGrid" Margin="0,0,2,3">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+
+
+
+        <!--<Label Content="Izbira Predmeta" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" 
+               Foreground="White" FontSize="20"/>
+
+        <RadioButton Content="{Binding  Ime_Predmeta}" HorizontalAlignment="Left" Margin="30,74,0,0" Grid.Row="1" VerticalAlignment="Top" 
+                     Foreground="White" FontSize="20"/>
+
+        <RadioButton Content="{Binding Ime_Predmeta}" HorizontalAlignment="Left" Margin="30,104,0,0" Grid.Row="1" VerticalAlignment="Top" 
+                     Foreground="White" FontSize="20"/>-->
+
+        <!--<ComboBox ItemsSource="{Binding Source={StaticResource predmetiViewSource}}" HorizontalAlignment="Left" Margin="10,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>-->
+
+
+        <Grid Grid.Row="1" Grid.Column="0" x:Name="Predmet" DataContext="{StaticResource predmetiViewSource}">
+
+            <ListView ItemsSource="{Binding}" HorizontalAlignment="Left" Height="126" Margin="10,52,0,0" VerticalAlignment="Top" Width="320" Background="#181735">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton x:Name="Button_Predmet" GroupName="First Group" Content="{Binding Ime_Predmeta}" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Foreground="Snow"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <Label Content="Izbira Predmeta" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="148"
+               Foreground="White" FontSize="20"/>
+            <Label Name="Izbira" Content="{Binding ID_Predmeta}" HorizontalAlignment="Left" Margin="35,202,0,0" VerticalAlignment="Top" Width="206" Foreground="GhostWhite"/>
+
+
+
+
+        </Grid>
+
+
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="Letnik" DataContext="{StaticResource letnikViewSource}">
+
+
+            <ListView ItemsSource="{Binding}"  HorizontalAlignment="Left" Height="126" Margin="10,52,0,0" VerticalAlignment="Top" Width="320" Background="#181735">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton x:Name="Button_Letnik" GroupName="Second Group" Content="{Binding Ime}" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Foreground="GhostWhite"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <Label Content="Izbira Letnika" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="133"
+               Foreground="White" FontSize="20"/>
+
+
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0" x:Name="Poglavje" DataContext="{StaticResource poglavjeViewSource}">
+
+
+            <ListView ItemsSource="{Binding}"  HorizontalAlignment="Left" Height="126" Margin="10,52,0,0" VerticalAlignment="Top" Width="345" Background="#181735">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton x:Name="Button_Naslov" GroupName="Third Group" Content="{Binding Naslov}" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Foreground="GhostWhite"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <Label Content="Izbira Poglavja" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="145"
+               Foreground="White" FontSize="20"/>
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="2" x:Name="Težavnost"  DataContext="{StaticResource tezavnostViewSource}">
+
+
+            <ListView ItemsSource="{Binding}"  HorizontalAlignment="Left" Height="126" Margin="10,52,0,0" VerticalAlignment="Top" Width="320" Background="#181735">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton x:Name="Button_Težavnost" GroupName="Fourth Group" Content="{Binding Ime_Težavnosti}" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Foreground="GhostWhite"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <Label Content="Izbira Težavnost" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="166"
+               Foreground="White" FontSize="20"/>
+
+        </Grid>
+
+        <Grid Background="GhostWhite" Grid.ColumnSpan="2" MouseDown="Grid_MouseDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Začetna stran" Foreground="Black" Grid.Column="0" FontWeight="Bold" FontSize="18"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Background="GhostWhite" 
+                    BorderBrush="GhostWhite" Click="Button_Click_1"></Button>
+
+            <Button x:Name="Btn_EXIT" Foreground="Black" Grid.Column="9" FontWeight="Bold" FontSize="18"
+             VerticalAlignment="Center" HorizontalAlignment="Center" Content="Izhod" Background="GhostWhite" 
+                    BorderBrush="GhostWhite" Click="Btn_EXIT_Click"></Button>
+
+        </Grid>
+        <!--<Button Content="Naprej" HorizontalAlignment="Left" Margin="652,361,0,0" Grid.Row="1" VerticalAlignment="Top" Width="76" Click="Button_Click"/>-->
+
+    </Grid>
+
+
+
+</Window>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="91d38d012a5d44e6a00fdd40f3984d75" Name="Diagram1">
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Kontrolne_Naloge" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Kriterij" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Letnik" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Poglavje" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Predmeti" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Rešitve" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Baza_Diplomska2022Model.Stopnja_Težavnosti" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Kontrolne__Krite__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Kontrolne__Letni__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Kontrolne__Predm__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Kontrolne__Rešit__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Kontrolne__Stopn__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Poglavje__Letnik__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="Baza_Diplomska2022Model.FK__Poglavje__Predme__35BCFE0A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

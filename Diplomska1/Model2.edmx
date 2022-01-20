@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Baza_Diplomska2022Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kontrolne_Naloge">
+          <Key>
+            <PropertyRef Name="ID_Naloge" />
+          </Key>
+          <Property Name="ID_Naloge" Type="int" Nullable="false" />
+          <Property Name="Naslov_Naloge" Type="nvarchar" MaxLength="99" Nullable="false" />
+          <Property Name="Letnik_FK" Type="int" Nullable="false" />
+          <Property Name="Predmet_FK" Type="int" Nullable="false" />
+          <Property Name="Vrednost_Točk" Type="int" Nullable="false" />
+          <Property Name="Kriterij_FK" Type="int" Nullable="false" />
+          <Property Name="Stopnja_Težavnosti_FK" Type="int" Nullable="false" />
+          <Property Name="Rešitev_FK" Type="int" />
+        </EntityType>
+        <EntityType Name="Kriterij">
+          <Key>
+            <PropertyRef Name="ID_Kriterij" />
+          </Key>
+          <Property Name="ID_Kriterij" Type="int" Nullable="false" />
+          <Property Name="Odlično" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PravDobro" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Dobro" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Zadostno" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Nezadostno" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Letnik">
+          <Key>
+            <PropertyRef Name="ID_Letnika" />
+          </Key>
+          <Property Name="ID_Letnika" Type="int" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poglavje">
+          <Key>
+            <PropertyRef Name="ID_Poglavja" />
+          </Key>
+          <Property Name="ID_Poglavja" Type="int" Nullable="false" />
+          <Property Name="Naslov" Type="nvarchar" MaxLength="99" Nullable="false" />
+          <Property Name="Letnik_FK" Type="int" Nullable="false" />
+          <Property Name="Predmet_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Predmeti">
+          <Key>
+            <PropertyRef Name="ID_Predmeta" />
+          </Key>
+          <Property Name="ID_Predmeta" Type="int" Nullable="false" />
+          <Property Name="Ime_Predmeta" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rešitve">
+          <Key>
+            <PropertyRef Name="ID_Rešitev" />
+          </Key>
+          <Property Name="ID_Rešitev" Type="int" Nullable="false" />
+          <Property Name="Rešitev_Naloge" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dodatna_Navodila" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Stopnja_Težavnosti">
+          <Key>
+            <PropertyRef Name="ID_Težavnosti" />
+          </Key>
+          <Property Name="ID_Težavnosti" Type="int" Nullable="false" />
+          <Property Name="Ime_Težavnosti" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Kontrolne__Krite__31EC6D26">
+          <End Role="Kriterij" Type="Self.Kriterij" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="ID_Kriterij" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Kriterij_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Letni__300424B4">
+          <End Role="Letnik" Type="Self.Letnik" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letnik">
+              <PropertyRef Name="ID_Letnika" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Letnik_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Predm__30F848ED">
+          <End Role="Predmeti" Type="Self.Predmeti" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmeti">
+              <PropertyRef Name="ID_Predmeta" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Predmet_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Rešit__33D4B598">
+          <End Role="Rešitve" Type="Self.Rešitve" Multiplicity="0..1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rešitve">
+              <PropertyRef Name="ID_Rešitev" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Rešitev_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Stopn__32E0915F">
+          <End Role="Stopnja_Težavnosti" Type="Self.Stopnja_Težavnosti" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stopnja_Težavnosti">
+              <PropertyRef Name="ID_Težavnosti" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Stopnja_Težavnosti_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Poglavje__Letnik__34C8D9D1">
+          <End Role="Letnik" Type="Self.Letnik" Multiplicity="1" />
+          <End Role="Poglavje" Type="Self.Poglavje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letnik">
+              <PropertyRef Name="ID_Letnika" />
+            </Principal>
+            <Dependent Role="Poglavje">
+              <PropertyRef Name="Letnik_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Poglavje__Predme__35BCFE0A">
+          <End Role="Predmeti" Type="Self.Predmeti" Multiplicity="1" />
+          <End Role="Poglavje" Type="Self.Poglavje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmeti">
+              <PropertyRef Name="ID_Predmeta" />
+            </Principal>
+            <Dependent Role="Poglavje">
+              <PropertyRef Name="Predmet_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Baza_Diplomska2022ModelStoreContainer">
+          <EntitySet Name="Kontrolne_Naloge" EntityType="Self.Kontrolne_Naloge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kriterij" EntityType="Self.Kriterij" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Letnik" EntityType="Self.Letnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poglavje" EntityType="Self.Poglavje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Predmeti" EntityType="Self.Predmeti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rešitve" EntityType="Self.Rešitve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stopnja_Težavnosti" EntityType="Self.Stopnja_Težavnosti" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Kontrolne__Krite__31EC6D26" Association="Self.FK__Kontrolne__Krite__31EC6D26">
+            <End Role="Kriterij" EntitySet="Kriterij" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Letni__300424B4" Association="Self.FK__Kontrolne__Letni__300424B4">
+            <End Role="Letnik" EntitySet="Letnik" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Predm__30F848ED" Association="Self.FK__Kontrolne__Predm__30F848ED">
+            <End Role="Predmeti" EntitySet="Predmeti" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Rešit__33D4B598" Association="Self.FK__Kontrolne__Rešit__33D4B598">
+            <End Role="Rešitve" EntitySet="Rešitve" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Stopn__32E0915F" Association="Self.FK__Kontrolne__Stopn__32E0915F">
+            <End Role="Stopnja_Težavnosti" EntitySet="Stopnja_Težavnosti" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Poglavje__Letnik__34C8D9D1" Association="Self.FK__Poglavje__Letnik__34C8D9D1">
+            <End Role="Letnik" EntitySet="Letnik" />
+            <End Role="Poglavje" EntitySet="Poglavje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Poglavje__Predme__35BCFE0A" Association="Self.FK__Poglavje__Predme__35BCFE0A">
+            <End Role="Predmeti" EntitySet="Predmeti" />
+            <End Role="Poglavje" EntitySet="Poglavje" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Baza_Diplomska2022Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kontrolne_Naloge">
+          <Key>
+            <PropertyRef Name="ID_Naloge" />
+          </Key>
+          <Property Name="ID_Naloge" Type="Int32" Nullable="false" />
+          <Property Name="Naslov_Naloge" Type="String" MaxLength="99" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Letnik_FK" Type="Int32" Nullable="false" />
+          <Property Name="Predmet_FK" Type="Int32" Nullable="false" />
+          <Property Name="Vrednost_Točk" Type="Int32" Nullable="false" />
+          <Property Name="Kriterij_FK" Type="Int32" Nullable="false" />
+          <Property Name="Stopnja_Težavnosti_FK" Type="Int32" Nullable="false" />
+          <Property Name="Rešitev_FK" Type="Int32" />
+          <NavigationProperty Name="Kriterij" Relationship="Self.FK__Kontrolne__Krite__31EC6D26" FromRole="Kontrolne_Naloge" ToRole="Kriterij" />
+          <NavigationProperty Name="Letnik" Relationship="Self.FK__Kontrolne__Letni__300424B4" FromRole="Kontrolne_Naloge" ToRole="Letnik" />
+          <NavigationProperty Name="Predmeti" Relationship="Self.FK__Kontrolne__Predm__30F848ED" FromRole="Kontrolne_Naloge" ToRole="Predmeti" />
+          <NavigationProperty Name="Rešitve" Relationship="Self.FK__Kontrolne__Rešit__33D4B598" FromRole="Kontrolne_Naloge" ToRole="Rešitve" />
+          <NavigationProperty Name="Stopnja_Težavnosti" Relationship="Self.FK__Kontrolne__Stopn__32E0915F" FromRole="Kontrolne_Naloge" ToRole="Stopnja_Težavnosti" />
+        </EntityType>
+        <EntityType Name="Kriterij">
+          <Key>
+            <PropertyRef Name="ID_Kriterij" />
+          </Key>
+          <Property Name="ID_Kriterij" Type="Int32" Nullable="false" />
+          <Property Name="Odlično" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PravDobro" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dobro" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zadostno" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nezadostno" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kontrolne_Naloge" Relationship="Self.FK__Kontrolne__Krite__31EC6D26" FromRole="Kriterij" ToRole="Kontrolne_Naloge" />
+        </EntityType>
+        <EntityType Name="Letnik">
+          <Key>
+            <PropertyRef Name="ID_Letnika" />
+          </Key>
+          <Property Name="ID_Letnika" Type="Int32" Nullable="false" />
+          <Property Name="Ime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kontrolne_Naloge" Relationship="Self.FK__Kontrolne__Letni__300424B4" FromRole="Letnik" ToRole="Kontrolne_Naloge" />
+          <NavigationProperty Name="Poglavje" Relationship="Self.FK__Poglavje__Letnik__34C8D9D1" FromRole="Letnik" ToRole="Poglavje" />
+        </EntityType>
+        <EntityType Name="Poglavje">
+          <Key>
+            <PropertyRef Name="ID_Poglavja" />
+          </Key>
+          <Property Name="ID_Poglavja" Type="Int32" Nullable="false" />
+          <Property Name="Naslov" Type="String" MaxLength="99" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Letnik_FK" Type="Int32" Nullable="false" />
+          <Property Name="Predmet_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Letnik" Relationship="Self.FK__Poglavje__Letnik__34C8D9D1" FromRole="Poglavje" ToRole="Letnik" />
+          <NavigationProperty Name="Predmeti" Relationship="Self.FK__Poglavje__Predme__35BCFE0A" FromRole="Poglavje" ToRole="Predmeti" />
+        </EntityType>
+        <EntityType Name="Predmeti">
+          <Key>
+            <PropertyRef Name="ID_Predmeta" />
+          </Key>
+          <Property Name="ID_Predmeta" Type="Int32" Nullable="false" />
+          <Property Name="Ime_Predmeta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kontrolne_Naloge" Relationship="Self.FK__Kontrolne__Predm__30F848ED" FromRole="Predmeti" ToRole="Kontrolne_Naloge" />
+          <NavigationProperty Name="Poglavje" Relationship="Self.FK__Poglavje__Predme__35BCFE0A" FromRole="Predmeti" ToRole="Poglavje" />
+        </EntityType>
+        <EntityType Name="Rešitve">
+          <Key>
+            <PropertyRef Name="ID_Rešitev" />
+          </Key>
+          <Property Name="ID_Rešitev" Type="Int32" Nullable="false" />
+          <Property Name="Rešitev_Naloge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dodatna_Navodila" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kontrolne_Naloge" Relationship="Self.FK__Kontrolne__Rešit__33D4B598" FromRole="Rešitve" ToRole="Kontrolne_Naloge" />
+        </EntityType>
+        <EntityType Name="Stopnja_Težavnosti">
+          <Key>
+            <PropertyRef Name="ID_Težavnosti" />
+          </Key>
+          <Property Name="ID_Težavnosti" Type="Int32" Nullable="false" />
+          <Property Name="Ime_Težavnosti" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kontrolne_Naloge" Relationship="Self.FK__Kontrolne__Stopn__32E0915F" FromRole="Stopnja_Težavnosti" ToRole="Kontrolne_Naloge" />
+        </EntityType>
+        <Association Name="FK__Kontrolne__Krite__31EC6D26">
+          <End Role="Kriterij" Type="Self.Kriterij" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kriterij">
+              <PropertyRef Name="ID_Kriterij" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Kriterij_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Letni__300424B4">
+          <End Role="Letnik" Type="Self.Letnik" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letnik">
+              <PropertyRef Name="ID_Letnika" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Letnik_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Predm__30F848ED">
+          <End Role="Predmeti" Type="Self.Predmeti" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmeti">
+              <PropertyRef Name="ID_Predmeta" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Predmet_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Rešit__33D4B598">
+          <End Role="Rešitve" Type="Self.Rešitve" Multiplicity="0..1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rešitve">
+              <PropertyRef Name="ID_Rešitev" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Rešitev_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kontrolne__Stopn__32E0915F">
+          <End Role="Stopnja_Težavnosti" Type="Self.Stopnja_Težavnosti" Multiplicity="1" />
+          <End Role="Kontrolne_Naloge" Type="Self.Kontrolne_Naloge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stopnja_Težavnosti">
+              <PropertyRef Name="ID_Težavnosti" />
+            </Principal>
+            <Dependent Role="Kontrolne_Naloge">
+              <PropertyRef Name="Stopnja_Težavnosti_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Poglavje__Letnik__34C8D9D1">
+          <End Role="Letnik" Type="Self.Letnik" Multiplicity="1" />
+          <End Role="Poglavje" Type="Self.Poglavje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letnik">
+              <PropertyRef Name="ID_Letnika" />
+            </Principal>
+            <Dependent Role="Poglavje">
+              <PropertyRef Name="Letnik_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Poglavje__Predme__35BCFE0A">
+          <End Role="Predmeti" Type="Self.Predmeti" Multiplicity="1" />
+          <End Role="Poglavje" Type="Self.Poglavje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmeti">
+              <PropertyRef Name="ID_Predmeta" />
+            </Principal>
+            <Dependent Role="Poglavje">
+              <PropertyRef Name="Predmet_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Baza_Diplomska2022Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kontrolne_Naloge" EntityType="Self.Kontrolne_Naloge" />
+          <EntitySet Name="Kriterij" EntityType="Self.Kriterij" />
+          <EntitySet Name="Letnik" EntityType="Self.Letnik" />
+          <EntitySet Name="Poglavje" EntityType="Self.Poglavje" />
+          <EntitySet Name="Predmeti" EntityType="Self.Predmeti" />
+          <EntitySet Name="Rešitve" EntityType="Self.Rešitve" />
+          <EntitySet Name="Stopnja_Težavnosti" EntityType="Self.Stopnja_Težavnosti" />
+          <AssociationSet Name="FK__Kontrolne__Krite__31EC6D26" Association="Self.FK__Kontrolne__Krite__31EC6D26">
+            <End Role="Kriterij" EntitySet="Kriterij" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Letni__300424B4" Association="Self.FK__Kontrolne__Letni__300424B4">
+            <End Role="Letnik" EntitySet="Letnik" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Predm__30F848ED" Association="Self.FK__Kontrolne__Predm__30F848ED">
+            <End Role="Predmeti" EntitySet="Predmeti" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Rešit__33D4B598" Association="Self.FK__Kontrolne__Rešit__33D4B598">
+            <End Role="Rešitve" EntitySet="Rešitve" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kontrolne__Stopn__32E0915F" Association="Self.FK__Kontrolne__Stopn__32E0915F">
+            <End Role="Stopnja_Težavnosti" EntitySet="Stopnja_Težavnosti" />
+            <End Role="Kontrolne_Naloge" EntitySet="Kontrolne_Naloge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Poglavje__Letnik__34C8D9D1" Association="Self.FK__Poglavje__Letnik__34C8D9D1">
+            <End Role="Letnik" EntitySet="Letnik" />
+            <End Role="Poglavje" EntitySet="Poglavje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Poglavje__Predme__35BCFE0A" Association="Self.FK__Poglavje__Predme__35BCFE0A">
+            <End Role="Predmeti" EntitySet="Predmeti" />
+            <End Role="Poglavje" EntitySet="Poglavje" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Baza_Diplomska2022ModelStoreContainer" CdmEntityContainer="Baza_Diplomska2022Entities">
+          <EntitySetMapping Name="Kontrolne_Naloge">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Kontrolne_Naloge">
+              <MappingFragment StoreEntitySet="Kontrolne_Naloge">
+                <ScalarProperty Name="ID_Naloge" ColumnName="ID_Naloge" />
+                <ScalarProperty Name="Naslov_Naloge" ColumnName="Naslov_Naloge" />
+                <ScalarProperty Name="Letnik_FK" ColumnName="Letnik_FK" />
+                <ScalarProperty Name="Predmet_FK" ColumnName="Predmet_FK" />
+                <ScalarProperty Name="Vrednost_Točk" ColumnName="Vrednost_Točk" />
+                <ScalarProperty Name="Kriterij_FK" ColumnName="Kriterij_FK" />
+                <ScalarProperty Name="Stopnja_Težavnosti_FK" ColumnName="Stopnja_Težavnosti_FK" />
+                <ScalarProperty Name="Rešitev_FK" ColumnName="Rešitev_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kriterij">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Kriterij">
+              <MappingFragment StoreEntitySet="Kriterij">
+                <ScalarProperty Name="ID_Kriterij" ColumnName="ID_Kriterij" />
+                <ScalarProperty Name="Odlično" ColumnName="Odlično" />
+                <ScalarProperty Name="PravDobro" ColumnName="PravDobro" />
+                <ScalarProperty Name="Dobro" ColumnName="Dobro" />
+                <ScalarProperty Name="Zadostno" ColumnName="Zadostno" />
+                <ScalarProperty Name="Nezadostno" ColumnName="Nezadostno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Letnik">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Letnik">
+              <MappingFragment StoreEntitySet="Letnik">
+                <ScalarProperty Name="ID_Letnika" ColumnName="ID_Letnika" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poglavje">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Poglavje">
+              <MappingFragment StoreEntitySet="Poglavje">
+                <ScalarProperty Name="ID_Poglavja" ColumnName="ID_Poglavja" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="Letnik_FK" ColumnName="Letnik_FK" />
+                <ScalarProperty Name="Predmet_FK" ColumnName="Predmet_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Predmeti">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Predmeti">
+              <MappingFragment StoreEntitySet="Predmeti">
+                <ScalarProperty Name="ID_Predmeta" ColumnName="ID_Predmeta" />
+                <ScalarProperty Name="Ime_Predmeta" ColumnName="Ime_Predmeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rešitve">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Rešitve">
+              <MappingFragment StoreEntitySet="Rešitve">
+                <ScalarProperty Name="ID_Rešitev" ColumnName="ID_Rešitev" />
+                <ScalarProperty Name="Rešitev_Naloge" ColumnName="Rešitev_Naloge" />
+                <ScalarProperty Name="Dodatna_Navodila" ColumnName="Dodatna_Navodila" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stopnja_Težavnosti">
+            <EntityTypeMapping TypeName="Baza_Diplomska2022Model.Stopnja_Težavnosti">
+              <MappingFragment StoreEntitySet="Stopnja_Težavnosti">
+                <ScalarProperty Name="ID_Težavnosti" ColumnName="ID_Težavnosti" />
+                <ScalarProperty Name="Ime_Težavnosti" ColumnName="Ime_Težavnosti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
